@@ -14,11 +14,11 @@ export const AuthProvider = ({ children }) => {
     localStorage.getItem("authTokens") ? jwt_decode(localStorage.getItem("authTokens")) : null);
 
     const [loading, setLoading] = useState(true);
-    const [history] = useHistory();
+    const history = useHistory();
 
     // Требует имя и пароль, если юзер существует и актуален-логин. Токены хранятся в локалСторе
     const loginUser = async (username, password) => {
-        const response = await fetch('http://127.0.0.1:8000/api/token', {
+        const response = await fetch('http://127.0.0.1:8000/api/token/', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
 
     // Рега юзера в БД. Валидация полей на бэке. Успех=>уходим на страницу логина.
     const registerUser = async (username, password, password2) => {
-        const response =await fetch('http://127.0.0.1:8000/api/register', {
+        const response =await fetch('http://127.0.0.1:8000/api/register/', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }) => {
             })
         });
         if (response.status === 201) {
-            history.push("/login");
+            history.push("/login/");
         } else {
             alert("Something wrong!");
         }
